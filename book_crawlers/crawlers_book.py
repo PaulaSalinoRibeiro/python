@@ -1,5 +1,5 @@
-from parsel import Selector
 import requests
+from parsel import Selector
 import json
 
 BASE_URL = "http://books.toscrape.com/"
@@ -66,11 +66,8 @@ def generate_file(data):
     json.dump(data, file)
 
 
-
 if __name__ == '__main__':
-  paths = details_links()
-  bbt_of_books = get_next_page()
-  print(len(bbt_of_books))
-  
-
  
+  bbt_of_books = get_next_page()
+  
+  generate_file(bbt_of_books)
