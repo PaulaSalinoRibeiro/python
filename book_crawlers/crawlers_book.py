@@ -12,11 +12,14 @@ def home_page(url):
     return ""
 
 
-def details_page():
+def details_links():
   content = home_page(BASE_URL)
-  details = Selector(content).css(".product_pod h3 a::attr(href)").get()
- 
-  details = home_page(BASE_URL + details)
+  details = Selector(content).css(".product_pod h3 a::attr(href)").getall()
+  return details
+
+
+def details_page(path):
+  details = home_page(BASE_URL + path)
  
   book = Selector(details)
  
@@ -27,7 +30,18 @@ def details_page():
   return { "image": image, "title": title, "description": description }
 
 
+def get_all_details_by_page():
+  paths = details_links()
+
+  books_details = []
+
+  for path in paths:
+    books_details.append(details_page(path))
+
+  return books_details
+
+
 if __name__ == '__main__':
 
-  print(details_page())
+  print(get_all_details_by_page())
  
